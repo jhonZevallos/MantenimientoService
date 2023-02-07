@@ -4,11 +4,11 @@ services:
     image: postgres:14.3
     restart: always
     ports:
-      - "5433:5432"
+      - "5432:5432"
     environment:
       POSTGRES_PASSWORD: Prueba
       POSTGRES_DB: DB_BANCO
-    container_name: Bootcamp
+    container_name: bdpostgres
 
   pgadmin:
     image: dpage/pgadmin4
