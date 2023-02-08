@@ -1,27 +1,20 @@
 package com.ntt.bc.model;
 
 import jakarta.persistence.*;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+@Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
-@Table(name = "cliente")
-public class Cliente {
+@Table(name = "tipo_cliente")
+public class TipoCliente {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idCliente;
+    private Long idTipoCliente;
     private String nombre;
-    private String apellido;
-    private String tipDoc;
-    private String numDoc;
-    private String email;
-    private String telefono;
-
-    @ManyToOne
-    private TipoCliente tipoCliente;
 }
