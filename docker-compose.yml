@@ -7,7 +7,7 @@ services:
       - "5432:5432"
     environment:
       POSTGRES_PASSWORD: Prueba
-      POSTGRES_DB: DB_BANCO
+      POSTGRES_DB: DB_CLIENTE
     container_name: bdpostgres
 
   pgadmin:
