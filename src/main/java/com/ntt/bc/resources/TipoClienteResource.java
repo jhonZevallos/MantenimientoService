@@ -1,7 +1,5 @@
 package com.ntt.bc.resources;
 
-import java.util.Optional;
-
 import com.ntt.bc.model.TipoCliente;
 import com.ntt.bc.service.ITipoClienteService;
 
