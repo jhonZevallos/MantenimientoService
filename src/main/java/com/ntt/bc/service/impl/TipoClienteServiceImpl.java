@@ -8,6 +8,7 @@ import com.ntt.bc.service.ITipoClienteService;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import jakarta.ws.rs.NotFoundException;
 
 @ApplicationScoped
 public class TipoClienteServiceImpl implements ITipoClienteService {
@@ -23,8 +24,12 @@ public class TipoClienteServiceImpl implements ITipoClienteService {
 
     @Override
     public TipoCliente actualizar(TipoCliente obj) {
-        this.tipoClienteRepository.persist(obj);
-        return obj;
+        TipoCliente tipoCliente = this.tipoClienteRepository.findById(obj.getIdTipoCliente());
+        if (tipoCliente == null) {
+            throw new NotFoundException("El tipo de cliente no existe");
+        }
+        tipoCliente.setNombre(obj.getNombre());
+        return tipoCliente;
     }
 
     @Override

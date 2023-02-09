@@ -35,7 +35,7 @@ public class ClienteResource {
 
     @GET
     @Transactional
-    @Path("/:id")
+    @Path("/{id}")
     public Response buscarPorId(@PathParam("id") Long id) {
         Cliente cliente = iService.buscarPorId(id);
         if (cliente == null) {
@@ -53,21 +53,15 @@ public class ClienteResource {
 
     @PUT
     @Transactional
-    @Path("/:id")
+    @Path("/{id}")
     public Response actualizar(@PathParam("id") Long id, @Valid Cliente cliente) {
-
-        Optional<Cliente> buscarCliente = Optional.of(iService.buscarPorId(id));
-        if (buscarCliente.isPresent() == false) {
-            return Response.noContent().build();
-        }
-        cliente.setIdCliente(id);
         Cliente actualizarCliente = iService.actualizar(cliente);
         return Response.ok(actualizarCliente).build();
     }
 
     @DELETE
     @Transactional
-    @Path("/:id")
+    @Path("/{id}")
     public Response eliminar(@PathParam("id") Long id) {
         this.iService.eliminar(id);
         return Response.noContent().build();

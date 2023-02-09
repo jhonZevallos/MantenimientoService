@@ -8,6 +8,7 @@ import com.ntt.bc.service.IClienteService;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import jakarta.ws.rs.NotFoundException;
 
 @ApplicationScoped
 public class ClienteServiceImpl implements IClienteService {
@@ -23,8 +24,17 @@ public class ClienteServiceImpl implements IClienteService {
 
     @Override
     public Cliente actualizar(Cliente obj) {
-        this.clienteRepository.persist(obj);
-        return obj;
+        Cliente cliente = this.clienteRepository.findById(obj.getIdCliente());
+        if (cliente == null) {
+            throw new NotFoundException("El cliente no existe");
+        }
+        cliente.setNombre(obj.getNombre());
+        cliente.setApellido(obj.getApellido());
+        cliente.setTipDoc(obj.getTipDoc());
+        cliente.setNumDoc(obj.getNumDoc());
+        cliente.setEmail(obj.getEmail());
+        cliente.setTelefono(obj.getTelefono());
+        return cliente;
     }
 
     @Override
