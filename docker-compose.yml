@@ -1,22 +1,12 @@
 version: '3'
+
 services:
-  postgres:
+  db:
     image: postgres:14.3
     restart: always
     ports:
-      - "5432:5432"
+      - "5433:5432"
     environment:
       POSTGRES_PASSWORD: Prueba
-      POSTGRES_DB: DB_CLIENTE
-    container_name: bdpostgres
-
-  pgadmin:
-    image: dpage/pgadmin4
-    restart: always
-    environment:
-      PGADMIN_DEFAULT_EMAIL: "admin@admin.com"
-      PGADMIN_DEFAULT_PASSWORD: "admin"
-    ports:
-      - "80:80"
-    depends_on:
-      - postgres
+      POSTGRES_DB: DB_BANCO
+    container_name: Bootcamp
