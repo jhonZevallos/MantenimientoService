@@ -42,14 +42,9 @@ public class ClienteServiceImplTest {
                 .name("Natural")
                 .build();
 
-        clientTypeNotFound = ClientType.builder()
-                .clientTypeId(2)
-                .name("Natural")
-                .build();
-
         client = Client.builder()
                 .clientId(1)
-                .clientType(clientTypeNotFound)
+                .clientType(clientType)
                 .name("william")
                 .documentIdentity("DNI")
                 .documentIdentity("88888888")

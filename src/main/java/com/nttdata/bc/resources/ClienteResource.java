@@ -64,4 +64,14 @@ public class ClienteResource {
         Client client = this.service.fintById(id);
         return Response.ok(client).build();
     }
+
+    @GET
+    @Path("/findByTypeAndNumDoc/{documentIdentityType}/{documentIdentity}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response findByTypeAndNumDoc(@PathParam("documentIdentityType") String documentIdentityType,
+            @PathParam("documentIdentity") String documentIdentity) {
+        Client client = this.service.findByTypeAndNumDoc(documentIdentityType, documentIdentity);
+        return Response.ok(client).build();
+    }
+
 }

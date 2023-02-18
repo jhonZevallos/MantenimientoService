@@ -94,4 +94,16 @@ public class ClientServiceImpl implements IClientService {
             throw new BadRequestException("El campo documentIdentityType debe tener uno de estos valores: [RUC].");
         }
     }
+
+    @Override
+    public Client findByTypeAndNumDoc(String documentIdentityType, String documentIdentity) {
+        Client client = this.repository
+                .find("documentIdentityType =?1 and documentIdentity=?2", documentIdentityType, documentIdentity)
+                .firstResult();
+        if (client == null) {
+            throw new NotFoundException("El cliente no existe");
+        }
+        return client;
+    }
+
 }
