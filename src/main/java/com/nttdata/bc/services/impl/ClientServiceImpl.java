@@ -28,6 +28,7 @@ public class ClientServiceImpl implements IClientService {
 
     @Override
     public Client insert(Client obj) {
+        logger.info("[RRM] ingresa a insert");
         this.validateData(obj);
         this.repository.persist(obj);
         return obj;
@@ -77,33 +78,26 @@ public class ClientServiceImpl implements IClientService {
     }
 
     private void validateData(Client obj) {
+        logger.info("[RRM] ingresa a validacion");
         if (obj.getClientType().getClientTypeId() == null) {
+            logger.info("[RRM] falló validación 1");
             throw new BadRequestException("El campo clientType.clientTypeId es requerido.");
         }
 
         ClientType clientType = this.clientTypeRepository.findById(obj.getClientType().getClientTypeId());
         if (clientType == null) {
+            logger.info("[RRM] falló validación 2");
             throw new NotFoundException(
                     "El tipo cliente con id: " + obj.getClientType().getClientTypeId() + ", no existe.");
         }
 
         if (clientType.getName().equals("Natural") && obj.getDocumentIdentityType().equals("RUC")) {
+            logger.info("[RRM] falló validación 3");
             throw new BadRequestException("El campo documentIdentityType debe tener uno de estos valores: [DNI, CEX].");
         } else if (clientType.getName().equals("Jurídico") &&
                 (obj.getDocumentIdentityType().equals("DNI") || obj.getDocumentIdentityType().equals("CEX"))) {
+                    logger.info("[RRM] falló validación 4");
             throw new BadRequestException("El campo documentIdentityType debe tener uno de estos valores: [RUC].");
         }
     }
-
-    @Override
-    public Client findByTypeAndNumDoc(String documentIdentityType, String documentIdentity) {
-        Client client = this.repository
-                .find("documentIdentityType =?1 and documentIdentity=?2", documentIdentityType, documentIdentity)
-                .firstResult();
-        if (client == null) {
-            throw new NotFoundException("El cliente no existe");
-        }
-        return client;
-    }
-
 }

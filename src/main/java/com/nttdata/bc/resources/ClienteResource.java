@@ -34,6 +34,7 @@ public class ClienteResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Transactional
     public Response insert(@Valid Client obj) {
+        logger.info("[RRM] ingresa a insert expuesto");
         Client client = this.service.insert(obj);
         return Response.status(Status.CREATED).entity(client).build();
     }
@@ -64,14 +65,4 @@ public class ClienteResource {
         Client client = this.service.fintById(id);
         return Response.ok(client).build();
     }
-
-    @GET
-    @Path("/findByTypeAndNumDoc/{documentIdentityType}/{documentIdentity}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response findByTypeAndNumDoc(@PathParam("documentIdentityType") String documentIdentityType,
-            @PathParam("documentIdentity") String documentIdentity) {
-        Client client = this.service.findByTypeAndNumDoc(documentIdentityType, documentIdentity);
-        return Response.ok(client).build();
-    }
-
 }
